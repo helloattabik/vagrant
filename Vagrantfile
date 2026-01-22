@@ -77,25 +77,31 @@
 # end
 
 Vagrant.configure("2") do |config|
+
   (1..3).each do |i|
     config.vm.define "node-#{i}" do |node|
+
       node.vm.box = "ubuntu/jammy64"
-      node.vm.hostname = "hostname_#{i}"
-      node.vm.network "private_network", ip:"10.10.10.#{i}"
-      node.vm.provider "VirtualBox" do |vb|
+      node.vm.hostname = "hostname-#{i}"
+
+      node.vm.network "private_network", ip: "10.10.10.#{i}"
+
+      node.vm.provider "virtualbox" do |vb|
         vb.name = "srv.node-#{i}"
         vb.cpus = 2
         vb.memory = 2048
         vb.gui = false
-        end
-      node.vb.provision "shell", inline:
+      end
+      
+      node.vm.provision "shell", inline: <<-SHELL
         echo "start provisioning"
         apt-get update -y
         apt-get upgrade -y
-        apt-get install nginx -y
+        apt-get install -y nginx
         echo "<h1>Server Node-#{i} is Running!</h1>" > /var/www/html/index.html
-        service nginx restart
-        end
-      end
+        systemctl restart nginx
+      SHELL
     end
   end
+end
+
