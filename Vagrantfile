@@ -81,7 +81,7 @@ Vagrant.configure("2") do |config|
   (1..3).each do |i|
     config.vm.define "node-#{i}" do |node|
 
-      node.vm.box = "ubuntu/jammy64"
+      node.vm.box = "ubuntu/trusty64"
       node.vm.hostname = "hostname-#{i}"
 
       node.vm.network "private_network", ip: "10.10.10.#{i}"
