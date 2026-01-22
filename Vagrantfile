@@ -95,11 +95,11 @@ Vagrant.configure("2") do |config|
       
       node.vm.provision "shell", inline: <<-SHELL
         echo "start provisioning"
-        apt-get update -y
-        apt-get upgrade -y
-        apt-get install -y nginx
-        echo "<h1>Server Node-#{i} is Running!</h1>" > /var/www/html/index.html
-        systemctl restart nginx
+        sudo apt-get update -y
+        sudo apt-get upgrade -y
+        sudo apt-get install -y nginx
+        echo "<h1> Yeah! Server Node-#{i} is Running! </h1>" | sudo tee /usr/share/nginx/html/index.html
+        service nginx restart
       SHELL
     end
   end
