@@ -6,15 +6,15 @@ This README provides essential commands and the structure overview for managing 
 
 ## Common Vagrant Commands
 
-| Command                 | Description                          |
-|-------------------------|------------------------------------|
-| `vagrant init .`         | Create a new `Vagrantfile` in the current directory. |
-| `vagrant up`             | Start and configure the VM as defined in the `Vagrantfile`. |
-| `vagrant destroy`        | Stop and delete the VM completely. |
-| `vagrant reload`         | Restart the VM, applying any changes in the configuration. |
-| `vagrant provision`      | Re-run the provisioning scripts on the running VM. |
-
----
+------------------------------------------------------------------------------------------
+| Command                  | Description                                                  |
+|--------------------------|--------------------------------------------------------------|
+| `vagrant init .`         | Create a new `Vagrantfile` in the current directory.         |
+| `vagrant up`             | Start and configure the VM as defined in the `Vagrantfile`.  |
+| `vagrant destroy`        | Stop and delete the VM completely.                           |
+| `vagrant reload`         | Restart the VM, applying any changes in the configuration.   |
+| `vagrant provision`      | Re-run the provisioning scripts on the running VM.           |
+------------------------------------------------------------------------------------------
 
 ## Basic Structure of a `Vagrantfile`
 
