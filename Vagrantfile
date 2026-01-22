@@ -88,14 +88,14 @@ Vagrant.configure("2") do |config|
         vb.memory = 2048
         vb.gui = false
         end
-        node.vb.provision "shell", inline:
-          echo "start provisioning"
-          apt-get update -y
-          apt-get upgrade -y
-          apt-get install nginx -y
-          echo "<h1>Server Node-#{i} is Running!</h1>" > /var/www/html/index.html
-          service nginx restart
-          end
+      node.vb.provision "shell", inline:
+        echo "start provisioning"
+        apt-get update -y
+        apt-get upgrade -y
+        apt-get install nginx -y
+        echo "<h1>Server Node-#{i} is Running!</h1>" > /var/www/html/index.html
+        service nginx restart
+        end
       end
     end
   end
