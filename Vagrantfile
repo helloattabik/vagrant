@@ -5,15 +5,14 @@
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
-Vagrant.configure("2") do |config|
+# Vagrant.configure("2") do |config|
   # The most common configuration options are documented and commented below.
   # For a complete reference, please see the online documentation at
   # https://docs.vagrantup.com.
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "ubuntu/jammy64"
-  
+  # config.vm.box = "ubuntu/bionic64"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -75,4 +74,27 @@ Vagrant.configure("2") do |config|
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
-end
+# end
+
+Vagrant.configure("2") do |config|
+  (1..3).each do |i|
+    config.vm.define "node-#{i}" do |node|
+      node.vm.provider = "ubuntu/jammy64"
+      node.vm.hotsname = "hostname_#{i}"
+      node.vm.network "private_network", ip:"10.10.10.#{i}"
+      node.vm.box "VirtualBox" do |vb|
+        vb.name = "srv.node-#{i}"
+        vb.cpus = 2
+        vb.memory = 2048
+        vb.gui = false
+        end
+        node.vb.provisioning "shell", inline:
+          echo "start provisioning"
+          apt-get update -y
+          apt-get upgrade -y
+          apt-get install nginx -y
+          echo "<h1>Server Node-#{i} is Running!</h1>" > /var/www/html/index.html
+          service nginx restart -y
+      end
+    end
+  end
